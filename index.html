@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Open in Paseo</title>
+<style>
+  body { font: 16px system-ui, sans-serif; background: #181B1A; color: #e8e8e8; display: grid; place-items: center; min-height: 100vh; margin: 0; }
+  main { text-align: center; padding: 24px; }
+  a { display: block; margin: 12px auto; padding: 14px 20px; max-width: 260px; border-radius: 10px; text-decoration: none; color: #fff; background: #2f6f4f; }
+  a.web { background: #333; }
+  .err { color: #e88; }
+</style>
+</head>
+<body>
+<main>
+  <p id="msg">Opening Paseo…</p>
+  <a id="app" href="#">Open in Paseo app</a>
+  <a id="web" class="web" href="#">Open in browser</a>
+</main>
+<script>
+  // Link format: .../paseo-open/#/h/<serverId>/agent/<agentId>  (the hash never reaches the server)
+  var path = location.hash.slice(1);
+  if (!/^\/h\/[A-Za-z0-9_-]+\/agent\/[0-9a-f-]{8,64}$/.test(path)) {
+    document.getElementById("msg").textContent = "Invalid Paseo agent link.";
+    document.getElementById("msg").className = "err";
+    document.getElementById("app").remove();
+    document.getElementById("web").remove();
+  } else {
+    var app = "paseo:/" + path, web = "https://app.paseo.sh" + path;
+    document.getElementById("app").href = app;
+    document.getElementById("web").href = web;
+    location.href = app;
+  }
+</script>
+</body>
+</html>
