@@ -38,6 +38,9 @@
     document.addEventListener("visibilitychange", function () { if (document.hidden) close(); });
     window.addEventListener("blur", close);
     location.href = app;
+    setTimeout(function () {
+      document.getElementById("msg").textContent = "Paseo should be open now. You can close this tab.";
+    }, 1200);
   }
 </script>
 </body>
