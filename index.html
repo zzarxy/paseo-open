@@ -32,6 +32,11 @@
     var app = "paseo:/" + path, web = "https://app.paseo.sh" + path;
     document.getElementById("app").href = app;
     document.getElementById("web").href = web;
+    // Once the app takes focus (desktop) or Safari goes to background (iPhone), close this tab;
+    // if the app didn't open, nothing fires and the buttons stay as a fallback.
+    var close = function () { setTimeout(function () { window.close(); }, 300); };
+    document.addEventListener("visibilitychange", function () { if (document.hidden) close(); });
+    window.addEventListener("blur", close);
     location.href = app;
   }
 </script>
